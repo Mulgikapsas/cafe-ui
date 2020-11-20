@@ -26,7 +26,5 @@ RUN echo "for mainFileName in /usr/share/nginx/html/main*.js ;\
             done \
             && nginx -g 'daemon off;'" > run.sh
 USER 1001
-RUN chmod 777 run.sh
-RUN chown 1001:root run.sh
 
 ENTRYPOINT ["sh", "run.sh"]
