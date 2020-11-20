@@ -19,12 +19,6 @@ RUN chmod 777 -R /usr/share/nginx
 RUN chown 1001:root -R /usr/share/nginx
 
 
-RUN echo "for mainFileName in /usr/share/nginx/html/main*.js ;\
-            do \
-              envsubst '\$BACKEND_API_URL \$DEFAULT_LANGUAGE ' < \$mainFileName > main.tmp ;\
-              mv main.tmp \${mainFileName} ;\
-            done \
-            && nginx -g 'daemon off;'" > run.sh
 USER 1001
 
-ENTRYPOINT ["sh", "run.sh"]
+ENTRYPOINT ["nginx", "-g", 'daemon',"off"]
