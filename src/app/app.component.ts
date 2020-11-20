@@ -15,9 +15,10 @@ export class AppComponent implements OnInit {
   coffeeItem = new Item();
   teaItem = new Item();
   myOrders: Order[];
-
-
-
+  cafeOrdersPending: Order[];
+  cafeOrdersInProgress: Order[];
+  cafeOrdersDone: Order[];
+  customerUIMode = true;
 
   ngOnInit(): void {
     this.coffeeItem.name = 'coffee';
@@ -27,6 +28,13 @@ export class AppComponent implements OnInit {
     this.activeOrder.items = [];
     this.activeOrder.totalPrice = 0;
     this.myOrders = [];
+    this.cafeOrdersPending = [];
+    this.cafeOrdersInProgress = [];
+    this.cafeOrdersDone = [];
+  }
+
+  switchUIMode(): void {
+    this.customerUIMode = !this.customerUIMode;
   }
 
   addcoffee(): void {
@@ -51,9 +59,10 @@ export class AppComponent implements OnInit {
   placeOrder(): void {
     const newOrder = new Order();
     newOrder.totalPrice = this.activeOrder.totalPrice;
-    newOrder.status = 'placed';
+    newOrder.status = 'Placed';
     this.myOrders.push(newOrder);
     this.clearActiveOrder();
+    this.cafeOrdersPending.push(newOrder);
   }
 
   clearActiveOrder(): void {
@@ -67,6 +76,21 @@ export class AppComponent implements OnInit {
   }
 
   cancelOrder(index: number, item: Order): void {
-    this.myOrders.splice(index, 1);
+    item.status = 'Cancelled';
+    // this.myOrders.splice(index, 1);
+    this.cafeOrdersDone.push(item);
+    this.cafeOrdersPending.splice(index, 1);
+  }
+
+  moveOrderToInProgress(index: number, item: Order): void {
+    item.status = 'In-progress';
+    this.cafeOrdersPending.splice(index, 1);
+    this.cafeOrdersInProgress.push(item);
+  }
+
+  moveOrderToDone(index: number, item: Order): void {
+    item.status = 'Completed';
+    this.cafeOrdersInProgress.splice(index, 1);
+    this.cafeOrdersDone.push(item);
   }
 }

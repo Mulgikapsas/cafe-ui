@@ -9,6 +9,8 @@
   grid-column-end: 6;
   grid-row-start: 1;
   grid-row-end: 2;
+  text-align: end;
+  padding: 10px;
 }
 
 .header-container {
@@ -18,21 +20,21 @@
   grid-row-end: 2;
 }
 
-.place-order-container {
+.place-order-container, .pending-orders-container {
   grid-column-start: 2;
   grid-column-end: 3;
   grid-row-start: 3;
   grid-row-end: 4;
 }
 
-.active-order-container {
+.active-order-container, .in-progress-orders-container {
   grid-column-start: 3;
   grid-column-end: 4;
   grid-row-start: 3;
   grid-row-end: 4;
 }
 
-.my-orders-container {
+.my-orders-container, .done-orders-container {
   grid-column-start: 4;
   grid-column-end: 5;
   grid-row-start: 3;
