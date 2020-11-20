@@ -2,25 +2,59 @@
 
 .container {
   display: grid;
-  grid-template-columns: 10% auto auto auto 10%;
-  grid-template-rows: 50px 20px auto;
+  grid-template-columns: 10% 320px 350px auto 10%;
+  grid-template-rows: 50px 40px auto;
 }
 
+h1 {
+  font-size: 40px;
+}
+
+.coffee-background, .tea-background {
+  border-radius: 10px;
+  border: 2px solid;
+}
+
+.del-button {
+  background-color: #583424;
+}
+
+.go-button {
+  background-color: #768969;
+}
+
+.show-order-button {
+  background-color: black;
+}
 .coffee-background {
   background-color: #889790;
+  
 }
 
 .tea-background {
   background-color: #768969;
 }
 
+.item-row {
+  margin-right: 20px;
+  font-weight: 300;
+}
+
+.coffee-background:active, .tea-background:active {
+  border: 3px solid yellow;
+}
+
 .mode-switch {
-  grid-column-start: 5;
-  grid-column-end: 6;
+  grid-column-start: 4;
+  grid-column-end: 5;
   grid-row-start: 1;
   grid-row-end: 2;
   text-align: end;
-  padding: 10px;
+  padding: 20px;
+}
+
+.mode-switch mat-icon {
+  font-size: 60px;
 }
 
 .header-container {
@@ -33,6 +67,10 @@
 .place-order-container {
   text-align: center;
   width: 200px;
+}
+
+.place-order-container > p > img {
+  height: 130px;
 }
 
 .place-order-container, .pending-orders-container {  

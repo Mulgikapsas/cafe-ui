@@ -9,8 +9,6 @@ import { Order } from './model-order';
 })
 
 export class AppComponent implements OnInit {
-  title = 'cafeapp';
-
   activeOrder = new Order();
   coffee1Item = new Item();
   coffee2Item = new Item();
@@ -22,6 +20,7 @@ export class AppComponent implements OnInit {
   cafeOrdersInProgress: Order[];
   cafeOrdersDone: Order[];
   customerUIMode = true;
+  showOrderDiv = false;
 
   ngOnInit(): void {
     this.coffee1Item.name = 'black coffee';
@@ -32,7 +31,7 @@ export class AppComponent implements OnInit {
     this.coffee3Item.price = 2.5;
     this.tea1Item.name = 'green tea';
     this.tea1Item.price = 1;
-    this.tea2Item.name = 'mint tea';
+    this.tea2Item.name = 'peppermint tea';
     this.tea2Item.price = 1.2;
     this.activeOrder.items = [];
     this.activeOrder.totalPrice = 0;
@@ -99,9 +98,9 @@ export class AppComponent implements OnInit {
 
   cancelOrder(index: number, item: Order): void {
     item.status = 'Cancelled';
-    // this.myOrders.splice(index, 1);
-    this.cafeOrdersDone.push(item);
     this.cafeOrdersPending.splice(index, 1);
+    this.cafeOrdersDone.push(item);
+    
   }
 
   moveOrderToInProgress(index: number, item: Order): void {
@@ -115,4 +114,9 @@ export class AppComponent implements OnInit {
     this.cafeOrdersInProgress.splice(index, 1);
     this.cafeOrdersDone.push(item);
   }
+
+  showOrder(order: Order): void {
+    alert('Not implemented yet!');
+  }
+
 }

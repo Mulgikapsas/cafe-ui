@@ -1,6 +1,8 @@
 <div class="container">
   <div class="header-container">
-    <h1><mat-icon>star_rate</mat-icon> Darkstar <mat-icon>star_rate</mat-icon> Cafe - welcome</h1>
+    <h1>
+      <mat-icon>star_rate</mat-icon> Darkstar <mat-icon>star_rate</mat-icon> Cafe <mat-icon>star_rate</mat-icon>
+    </h1>
   </div>
 
   <div class="mode-switch">
@@ -15,53 +17,62 @@
   <div [style.display]="customerUIMode ? 'contents' : 'none'">
     <div class="place-order-container">
       <h2>Click to order</h2>
-      <p class="coffee-background"><img src="../assets/black.PNG" (click)="addCoffee1()"></p>
-      <p class="coffee-background"><img src="../assets/espresso.PNG" (click)="addCoffee2()"></p>
-      <p class="coffee-background"><img src="../assets/mocha.PNG" (click)="addCoffee3()"></p>
-      <p class="tea-background"><img src="../assets/green.PNG" (click)="addTea1()"></p>
-      <p class="tea-background"><img src="../assets/mint.PNG" (click)="addTea2()"></p>
+      <p class="coffee-background" (click)="addCoffee1()"><img src="../assets/black.PNG"></p>
+      <p class="coffee-background" (click)="addCoffee2()"><img src="../assets/espresso.PNG"></p>
+      <p class="coffee-background" (click)="addCoffee3()"><img src="../assets/mocha.PNG"></p>
+      <p class="tea-background" (click)="addTea1()"><img src="../assets/green.PNG"></p>
+      <p class="tea-background" (click)="addTea2()"><img src="../assets/mint.PNG"></p>
     </div>
 
     <div class="active-order-container">
       <h2>Active order</h2>
       <div *ngFor="let item of activeOrder.items; let i = index;">
-        <p><span>Item: </span>{{item.name}}
-          <span>Price: </span>£{{item.price}}
-          <span><button mat-mini-fab color="accent" (click)="deleteItem(i,item)">
+        <p><span class="item-row">{{item.name}} (£{{item.price}})</span>
+          <span><button class="del-button" mat-mini-fab color="accent" (click)="deleteItem(i,item)">
               <mat-icon>delete</mat-icon>
             </button></span>
         </p>
       </div>
-      <h3>Total £{{activeOrder.totalPrice}}</h3>
-      <button *ngIf="activeOrder.totalPrice>0" mat-raised-button color="primary" (click)="placeOrder()">Place
+      <h3>Total £{{ activeOrder.totalPrice | number : '1.2-2' }}</h3>
+      <button class="go-button" *ngIf="activeOrder.totalPrice>0" mat-raised-button color="primary"
+        (click)="placeOrder()">Place
         order</button>
     </div>
     <div class="my-orders-container">
       <h2>My orders</h2>
+      <div *ngIf="myOrders.length==0">
+        <h3>no orders</h3>
+      </div>
       <div *ngFor="let item of myOrders; let i = index;">
-        <p><span>Price: </span>£{{item.totalPrice}}
-          <span>Status: </span>{{item.status}}
-          <span><button *ngIf="item.status!='Cancelled' && item.status!='Completed'
+        <p><span class="item-row">Total £{{ item.totalPrice | number : '1.2-2' }} ({{item.status}})</span>
+          <span><button class="del-button" *ngIf="item.status!='Cancelled' && item.status!='Completed'
             && item.status!='In-progress'" mat-mini-fab color="accent" (click)="cancelOrder(i,item)">
               <mat-icon>delete</mat-icon>
+            </button></span>
+          <span><button class="show-order-button" *ngIf="item.status!='Cancelled' && item.status!='Completed'" 
+            mat-mini-fab color="accent" (click)="showOrder(item)">
+              <mat-icon>visibility</mat-icon>
             </button></span>
         </p>
       </div>
     </div>
   </div>
 
-   <!-- CAFE UI -->
+  <!-- CAFE UI -->
   <div [style.display]="!customerUIMode ? 'contents' : 'none'">
     <div class="pending-orders-container">
       <h2>Pending orders</h2>
       <div *ngFor="let item of cafeOrdersPending; let i = index;">
-        <p><span>Price: </span>£{{item.totalPrice}}
-          <span>Status: </span>{{item.status}}
-          <span><button *ngIf="item.status!='Cancelled' && item.status!='Completed'" mat-mini-fab color="accent" (click)="cancelOrder(i,item)">
-            <mat-icon>delete</mat-icon>
-          </button></span>
-            <span><button mat-mini-fab color="primary" (click)="moveOrderToInProgress(i,item)">
+        <p><span class="item-row">Total £{{ item.totalPrice | number : '1.2-2' }} ({{item.status}})</span>
+          <span><button class="del-button" *ngIf="item.status!='Cancelled' && item.status!='Completed'" mat-mini-fab
+              color="accent" (click)="cancelOrder(i,item)">
+              <mat-icon>delete</mat-icon>
+            </button></span>
+          <span><button class="go-button" mat-mini-fab color="primary" (click)="moveOrderToInProgress(i,item)">
               <mat-icon>done</mat-icon>
+            </button></span>
+          <span><button class="show-order-button" mat-mini-fab color="accent" (click)="showOrder(item)">
+              <mat-icon>visibility</mat-icon>
             </button></span>
         </p>
       </div>
@@ -70,11 +81,13 @@
     <div class="in-progress-orders-container">
       <h2>In-progress orders</h2>
       <div *ngFor="let item of cafeOrdersInProgress; let i = index;">
-        <p><span>Price: </span>£{{item.totalPrice}}
-          <span>Status: </span>{{item.status}}  
-          <span><button mat-mini-fab color="primary" (click)="moveOrderToDone(i,item)">
-            <mat-icon>done</mat-icon>
-          </button></span>        
+        <p><span class="item-row">Total £{{ item.totalPrice | number : '1.2-2' }} ({{item.status}})</span>
+          <span><button class="go-button" mat-mini-fab color="primary" (click)="moveOrderToDone(i,item)">
+              <mat-icon>done</mat-icon>
+            </button></span>
+          <span><button class="show-order-button" mat-mini-fab color="accent" (click)="showOrder(item)">
+              <mat-icon>visibility</mat-icon>
+            </button></span>
         </p>
       </div>
     </div>
@@ -82,8 +95,11 @@
     <div class="done-orders-container">
       <h2>Completed / Cancelled orders</h2>
       <div *ngFor="let item of cafeOrdersDone; let i = index;">
-        <p><span>Price: </span>£{{item.totalPrice}}
-          <span>Status: </span>{{item.status}}
+        <p><span class="item-row">Total £{{ item.totalPrice | number : '1.2-2' }} ({{item.status}})</span>
+          <span><button class="show-order-button" *ngIf="item.status!='Cancelled' && item.status!='Completed'" 
+             mat-mini-fab color="accent" (click)="showOrder(item)">
+              <mat-icon>visibility</mat-icon>
+            </button></span>
         </p>
       </div>
     </div>

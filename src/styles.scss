@@ -2,3 +2,16 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+body::after {
+    background: url(https://www.trailheadcoffeeshop.com/wp-content/uploads/2018/10/banner-2-1-1360x605.jpg);
+    content: "";
+    opacity: 0.1;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: -1;   
+    background-size:cover;
+  }
