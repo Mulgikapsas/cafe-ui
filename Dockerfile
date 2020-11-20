@@ -1,24 +1,11 @@
-FROM gmathieu/node-browsers:3.0.0 AS build
+FROM node:10.16.3-alpine as node
 
-COPY package.json /usr/angular-workdir/
-WORKDIR /usr/angular-workdir
+WORKDIR /opt/
+COPY package.json .
 RUN npm install
+COPY . .
+RUN ./node_modules/@angular/cli/bin/ng build
 
-COPY ./ /usr/angular-workdir
-RUN npm run build
-
-FROM nginx:1.15.8-alpine
-
-## Remove default nginx website
-RUN rm -rf /usr/share/nginx/html/*
-
-COPY ./dev/nginx.conf /etc/nginx/nginx.conf
-
-COPY --from=build  /usr/angular-workdir/dist/cafeapp /usr/share/nginx/html
-RUN chmod 777 -R /usr/share/nginx
-RUN chown 1001:root -R /usr/share/nginx
-
-
-USER 1001
-
-ENTRYPOINT ["nginx", "-g", 'daemon',"off"]
+FROM nginx
+RUN rm /usr/share/nginx/html/*
+COPY --from=node /opt/dist/. /usr/share/nginx/html/
