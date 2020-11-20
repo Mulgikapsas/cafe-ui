@@ -1,1 +1,42 @@
-<h1> Darkstar Cafe - welcome </h1>
+<div class="container">
+  <div class="header-container">
+    <h1> Darkstar <mat-icon>stars</mat-icon> Cafe - welcome</h1>
+  </div>
+  
+  <div class="mode-switch">
+    <mat-icon *ngIf="true">local_cafe</mat-icon>
+  </div>
+
+  <div class="place-order-container">
+    <h2>Place an order</h2>
+    <button mat-raised-button color="primary" (click)="addcoffee()">Coffee</button>
+    <button mat-raised-button color="primary" (click)="addTea()">Tea</button>
+  </div>
+
+  <div class="active-order-container">
+    <h2>Active order</h2>
+    <div *ngFor="let item of activeOrder.items; let i = index;">
+      <p><span>Item: </span>{{item.name}}
+        <span>Price: </span>£{{item.price}}
+        <span><button mat-mini-fab color="accent" (click)="deleteItem(i,item)">
+            <mat-icon>delete</mat-icon>
+          </button></span>
+      </p>
+    </div>
+    <h3>Total £{{activeOrder.totalPrice}}</h3>
+    <button *ngIf="activeOrder.totalPrice>0" mat-raised-button color="primary" (click)="placeOrder()">Place
+      order</button>
+  </div>
+  <div class="my-orders-container">
+    <h2>My orders</h2>
+    <div *ngFor="let item of myOrders; let i = index;">
+      <p><span>Price: </span>£{{item.totalPrice}}
+        <span>Status: </span>{{item.status}}
+        <span><button mat-mini-fab color="accent" (click)="cancelOrder(i,item)">
+            <mat-icon>delete</mat-icon>
+          </button></span>
+      </p>
+    </div>
+  </div>
+
+</div>
