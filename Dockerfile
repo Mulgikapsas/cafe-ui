@@ -8,5 +8,5 @@ RUN ./node_modules/@angular/cli/bin/ng build
 
 FROM nginx
 RUN rm /usr/share/nginx/html/*
-RUN mkdir -p /var/cache/nginx/ && chmod 777 -R /var/cache/
+RUN mkdir -p /var/cache/nginx/ && chmod 777 -R /var/cache/ && chmod 777 -R /etc/nginx/ && chmod 777 -R /usr/share/nginx/
 COPY --from=node /opt/dist/. /usr/share/nginx/html/
