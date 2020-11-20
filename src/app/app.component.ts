@@ -12,8 +12,11 @@ export class AppComponent implements OnInit {
   title = 'cafeapp';
 
   activeOrder = new Order();
-  coffeeItem = new Item();
-  teaItem = new Item();
+  coffee1Item = new Item();
+  coffee2Item = new Item();
+  coffee3Item = new Item();
+  tea1Item = new Item();
+  tea2Item = new Item();
   myOrders: Order[];
   cafeOrdersPending: Order[];
   cafeOrdersInProgress: Order[];
@@ -21,10 +24,16 @@ export class AppComponent implements OnInit {
   customerUIMode = true;
 
   ngOnInit(): void {
-    this.coffeeItem.name = 'coffee';
-    this.coffeeItem.price = 1.5;
-    this.teaItem.name = 'Tea';
-    this.teaItem.price = 1;
+    this.coffee1Item.name = 'black coffee';
+    this.coffee1Item.price = 1.5;
+    this.coffee2Item.name = 'espresso';
+    this.coffee2Item.price = 1.1;
+    this.coffee3Item.name = 'mocha';
+    this.coffee3Item.price = 2.5;
+    this.tea1Item.name = 'green tea';
+    this.tea1Item.price = 1;
+    this.tea2Item.name = 'mint tea';
+    this.tea2Item.price = 1.2;
     this.activeOrder.items = [];
     this.activeOrder.totalPrice = 0;
     this.myOrders = [];
@@ -37,13 +46,28 @@ export class AppComponent implements OnInit {
     this.customerUIMode = !this.customerUIMode;
   }
 
-  addcoffee(): void {
-    this.activeOrder.items.push(this.coffeeItem);
+  addCoffee1(): void {
+    this.activeOrder.items.push(this.coffee1Item);
     this.recalcActiveOrder();
   }
 
-  addTea(): void {
-    this.activeOrder.items.push(this.teaItem);
+  addCoffee2(): void {
+    this.activeOrder.items.push(this.coffee2Item);
+    this.recalcActiveOrder();
+  }
+
+  addCoffee3(): void {
+    this.activeOrder.items.push(this.coffee3Item);
+    this.recalcActiveOrder();
+  }
+
+  addTea1(): void {
+    this.activeOrder.items.push(this.tea1Item);
+    this.recalcActiveOrder();
+  }
+
+  addTea2(): void {
+    this.activeOrder.items.push(this.tea2Item);
     this.recalcActiveOrder();
   }
 
@@ -53,8 +77,6 @@ export class AppComponent implements OnInit {
       this.activeOrder.totalPrice += this.activeOrder.items[i].price;
     }
   }
-
-
 
   placeOrder(): void {
     const newOrder = new Order();

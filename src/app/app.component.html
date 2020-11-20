@@ -15,8 +15,11 @@
   <div [style.display]="customerUIMode ? 'contents' : 'none'">
     <div class="place-order-container">
       <h2>Place an order</h2>
-      <button mat-raised-button color="primary" (click)="addcoffee()">Coffee</button>
-      <button mat-raised-button color="primary" (click)="addTea()">Tea</button>
+      <div class="coffee-background"><img src="../assets/black.PNG" (click)="addCoffee1()"></div>
+      <p class="coffee-background"><img src="../assets/espresso.PNG" (click)="addCoffee2()"></p>
+      <p class="coffee-background"><img src="../assets/mocha.PNG" (click)="addCoffee3()"></p>
+      <p class="tea-background"><img src="../assets/green.PNG" (click)="addTea1()"></p>
+      <p class="tea-background"><img src="../assets/mint.PNG" (click)="addTea2()"></p>
     </div>
 
     <div class="active-order-container">
