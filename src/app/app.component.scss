@@ -23,10 +23,6 @@
   padding: 10px;
 }
 
-img {
-  text-align: center;
-}
-
 .header-container {
   grid-column-start: 2;
   grid-column-end: 5;
@@ -34,8 +30,12 @@ img {
   grid-row-end: 2;
 }
 
-.place-order-container, .pending-orders-container {
-  width: 140px;
+.place-order-container {
+  text-align: center;
+  width: 200px;
+}
+
+.place-order-container, .pending-orders-container {  
   grid-column-start: 2;
   grid-column-end: 3;
   grid-row-start: 3;
